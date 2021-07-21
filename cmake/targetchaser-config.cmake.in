@@ -1,0 +1,54 @@
+# TargetChaser CMake config file
+#
+# This file sets the following variables:
+# TargetChaser_FOUND - Always TRUE.
+# TargetChaser_INCLUDE_DIRS - Directories containing the TargetChaser include files.
+# TargetChaser_IDL_DIRS - Directories containing the TargetChaser IDL files.
+# TargetChaser_LIBRARIES - Libraries needed to use TargetChaser.
+# TargetChaser_DEFINITIONS - Compiler flags for TargetChaser.
+# TargetChaser_VERSION - The version of TargetChaser found.
+# TargetChaser_VERSION_MAJOR - The major version of TargetChaser found.
+# TargetChaser_VERSION_MINOR - The minor version of TargetChaser found.
+# TargetChaser_VERSION_REVISION - The revision version of TargetChaser found.
+# TargetChaser_VERSION_CANDIDATE - The candidate version of TargetChaser found.
+
+message(STATUS "Found TargetChaser-@PROJECT_VERSION@")
+set(TargetChaser_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(TargetChaser_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(TargetChaser_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(TargetChaser_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(TargetChaser_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(TargetChaser_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(TargetChaser_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(TargetChaser_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(TargetChaser_VERSION @PROJECT_VERSION@)
+set(TargetChaser_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(TargetChaser_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(TargetChaser_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(TargetChaser_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
